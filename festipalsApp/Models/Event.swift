@@ -17,6 +17,6 @@ struct Event: Identifiable, Codable {
     var lastDay = Date()
     
     var dictionary: [String: Any] {
-        return ["event name": eventName, "venue": venue, "multi day": multiDay, "first day": firstDay, "last day": lastDay]
+        return ["eventName": eventName, "venue": venue, "multiDay": multiDay, "firstDay": firstDay, "last day": lastDay]
     }
 }

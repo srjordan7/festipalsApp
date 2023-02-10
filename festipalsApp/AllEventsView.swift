@@ -7,11 +7,31 @@
 
 import SwiftUI
 import Firebase
+import FirebaseFirestoreSwift
+
+struct UserEvent: Identifiable {
+    var id: String { documentId }
+    let documentId: String
+    let eventName, venue: String
+    let multiDay: Bool
+    let firstDay, lastDay: Any
+    
+    init(documentId: String, data: [String: Any]) {
+        self.documentId = documentId
+        self.eventName = data["eventName"] as? String ?? ""
+        self.venue = data["venue"] as? String ?? ""
+        self.multiDay = data["multiDay"] as? Bool != nil
+        self.firstDay = data["firstDay"]
+        self.lastDay = data["lastDay"]
+    }
+}
 
 class AllEventsViewModel: ObservableObject {
     
     @Published var errorMsg = ""
     @Published var user: User?
+    
+    @Published var userEvents = [UserEvent]()
     
     init() {
         DispatchQueue.main.async {
@@ -19,6 +39,7 @@ class AllEventsViewModel: ObservableObject {
         }
         
         fetchCurrentUser()
+        fetchUserEvents()
     }
     
     // get current user data
@@ -49,9 +70,30 @@ class AllEventsViewModel: ObservableObject {
         currentlyLoggedOut.toggle()
         try? Auth.auth().signOut()
     }
+    
+    private func fetchUserEvents() {
+        let uid = Auth.auth().currentUser?.uid ?? ""
+        Firestore.firestore().collection("users").document(uid).collection("events").addSnapshotListener { querySnapshot, error in
+            if let error = error {
+                self.errorMsg = "failed to listen for events: \(error.localizedDescription)"
+                print(error)
+                return
+            }
+            
+            querySnapshot?.documentChanges.forEach({ change in
+                if change.type == .added {
+                    let data = change.document.data()
+                    let userEvent = UserEvent(documentId: change.document.documentID, data: data)
+                    self.userEvents.append(userEvent)
+                }
+            })
+        }
+    }
+    
 }
 
 struct AllEventsView: View {
+    @FirestoreQuery(collectionPath: "users/\( Auth.auth().currentUser?.uid ?? "")/events") var events: [Event]
     @State var showLogOutOptions = false
     
     @ObservedObject private var vm = AllEventsViewModel()
@@ -109,13 +151,13 @@ struct AllEventsView: View {
 
                 // list of events
                 ScrollView {
-                    ForEach(0..<5, id: \.self) { num in
+                    ForEach(vm.userEvents) { event in
                         // single event container
-                        HStack {
+                        NavigationLink(destination: EventHomeView(event: event)) {
                             VStack {
-                                Text("event name")
+                                Text(event.eventName)
                                     .font(.system(size: 22))
-                                Text("venue")
+                                Text(event.venue)
                                 Text("# days left")
                             }
                         }
