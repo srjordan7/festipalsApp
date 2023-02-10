@@ -9,93 +9,12 @@ import SwiftUI
 import Firebase
 import FirebaseFirestoreSwift
 
-//struct UserEvent: Identifiable {
-//    var id: String { documentId }
-//    let documentId: String
-//    let eventName, venue: String
-//    let multiDay: Bool
-//    let firstDay, lastDay: Any
-//
-//    init(documentId: String, data: [String: Any]) {
-//        self.documentId = documentId
-//        self.eventName = data["eventName"] as? String ?? ""
-//        self.venue = data["venue"] as? String ?? ""
-//        self.multiDay = data["multiDay"] as? Bool != nil
-//        self.firstDay = data["firstDay"]
-//        self.lastDay = data["lastDay"]
-//    }
-//}
-
-class AllEventsViewModel: ObservableObject {
-    
-    @Published var errorMsg = ""
-    @Published var user: User?
-    
-//    @Published var userEvents = [UserEvent]()
-    
-    init() {
-        DispatchQueue.main.async {
-            self.currentlyLoggedOut = Auth.auth().currentUser?.uid == nil
-        }
-        
-        fetchCurrentUser()
-    }
-    
-    // get current user data
-    func fetchCurrentUser() {
-        guard let uid = Auth.auth().currentUser?.uid else {
-            self.errorMsg = "could not find user data"
-            return }
-        
-        Firestore.firestore().collection("users").document(uid).getDocument { snapshot, error in
-            if let error = error {
-                self.errorMsg = "failed to fetch current user: \(error.localizedDescription)"
-                print("failed to fetch current user: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let data = snapshot?.data() else {
-                self.errorMsg = "no data found"
-                return }
-            
-            // build User from data
-            self.user = .init(data: data)
-        }
-    }
-    
-    @Published var currentlyLoggedOut = false
-    
-    func signOut() {
-        currentlyLoggedOut.toggle()
-        try? Auth.auth().signOut()
-    }
-    
-//    private func fetchUserEvents() {
-//        let uid = Auth.auth().currentUser?.uid ?? ""
-//        Firestore.firestore().collection("users").document(uid).collection("events").addSnapshotListener { querySnapshot, error in
-//            if let error = error {
-//                self.errorMsg = "failed to listen for events: \(error.localizedDescription)"
-//                print(error)
-//                return
-//            }
-//
-//            querySnapshot?.documentChanges.forEach({ change in
-//                if change.type == .added {
-//                    let data = change.document.data()
-//                    let userEvent = UserEvent(documentId: change.document.documentID, data: data)
-//                    self.userEvents.append(userEvent)
-//                }
-//            })
-//        }
-//    }
-    
-}
-
 struct AllEventsView: View {
-    @FirestoreQuery(collectionPath: "users/\( Auth.auth().currentUser?.uid ?? "")/events") var events: [Event]
+    @FirestoreQuery(collectionPath: "users/\(Auth.auth().currentUser?.uid ?? "")/events") var events: [Event]
     @State var showLogOutOptions = false
     
-    @ObservedObject private var vm = AllEventsViewModel()
+    @ObservedObject private var currentUserVM = CurrentUserViewModel()
+    @ObservedObject private var eventsVM = NewEventViewModel()
     
     var body: some View {
         NavigationView {
@@ -104,7 +23,7 @@ struct AllEventsView: View {
                 VStack {
                     HStack {
                         // current account picture
-                        AsyncImage(url: URL(string: vm.user?.profileImageUrl ?? "")) { returnedImage in
+                        AsyncImage(url: URL(string: currentUserVM.user?.profileImageUrl ?? "")) { returnedImage in
                             returnedImage
                                 .resizable()
                                 .scaledToFill()
@@ -129,20 +48,20 @@ struct AllEventsView: View {
                     .actionSheet(isPresented: $showLogOutOptions) {
                         .init(title: Text("log out"), message: Text("are you sure you want to log out?"), buttons: [
                             .destructive(Text("yes"), action: {
-                                vm.signOut()
+                                currentUserVM.signOut()
                             }),
                             .cancel(Text("nevermind"))
                         ])
                     }
-                    .fullScreenCover(isPresented: $vm.currentlyLoggedOut, onDismiss: nil) {
+                    .fullScreenCover(isPresented: $currentUserVM.currentlyLoggedOut, onDismiss: nil) {
                         LogInView(completeLoginProcess: {
-                            self.vm.currentlyLoggedOut = false
-                            self.vm.fetchCurrentUser()
+                            self.currentUserVM.currentlyLoggedOut = false
+                            self.currentUserVM.fetchCurrentUser()
                         })
                     }
                     
                     // personalized heading
-                    Text("hi, \(vm.user?.name ?? "")!")
+                    Text("hi, \(currentUserVM.user?.name ?? "")!")
                     Text("upcoming events")
                         .font(.system(size: 26))
                 }
@@ -150,14 +69,17 @@ struct AllEventsView: View {
 
                 // list of events
                 ScrollView {
-                    ForEach(events) { event in
+                    ForEach(eventsVM.events) { event in
                         // single event container
                         NavigationLink(destination: EventHomeView(event: event)) {
                             VStack {
                                 Text(event.eventName)
                                     .font(.system(size: 22))
-                                Text(event.venue)
-                                Text("# days left")
+                                if !event.multiDay {
+                                    Text(event.firstDayString)
+                                } else {
+                                    Text("\(event.firstDayString) - \(event.lastDayString)")
+                                }
                             }
                         }
                         .foregroundColor(.white)
@@ -168,6 +90,7 @@ struct AllEventsView: View {
                 }
                 .padding(.bottom, 50)
             }
+//            .onAppear(perform: self.eventsVm.getEventData)
             .overlay(
                 newEventButton, alignment: .bottom)
             .navigationBarHidden(true)
@@ -198,6 +121,17 @@ struct AllEventsView: View {
         .fullScreenCover(isPresented: $showNewEventScreen) {
             NewEventView(event: Event())
         }
+    }
+    
+    func dateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, y"
+        let stringDate = dateFormatter.string(from: date)
+        return stringDate
+    }
+    
+    init() {
+        eventsVM.getEventData()
     }
 }
 

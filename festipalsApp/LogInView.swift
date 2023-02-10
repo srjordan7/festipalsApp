@@ -190,7 +190,7 @@ struct LogInView: View {
             .document(uid).setData(userData) { error in
                 if let error = error {
                     print(error.localizedDescription)
-                    self.logInStatusMsg = "\(error)"
+                    self.logInStatusMsg = "\(error.localizedDescription)"
                     return
                 }
                 

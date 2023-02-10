@@ -14,9 +14,18 @@ struct Event: Identifiable, Codable {
     var venue = ""
     var multiDay = false
     var firstDay = Date()
+    var firstDayString = ""
     var lastDay = Date()
+    var lastDayString = ""
     
     var dictionary: [String: Any] {
-        return ["eventName": eventName, "venue": venue, "multiDay": multiDay, "firstDay": firstDay, "last day": lastDay]
+        return ["eventName": eventName, "venue": venue, "multiDay": multiDay, "firstDay": firstDay, "firstDayString": dateToString(date: firstDay), "lastDay": lastDay, "lastDayString": dateToString(date: lastDay)]
+    }
+    
+    func dateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, y"
+        let stringDate = dateFormatter.string(from: date)
+        return stringDate
     }
 }
