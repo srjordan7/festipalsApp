@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseStorage
 
 struct LogInView: View {
     // log in/sign up picker
@@ -14,6 +15,9 @@ struct LogInView: View {
     // email/pass field variables
     @State var email = ""
     @State var password = ""
+    // image picker
+    @State var showImagePicker = false
+    @State var image: UIImage?
         
     var body: some View {
         NavigationView {
@@ -31,11 +35,22 @@ struct LogInView: View {
                     // profile picture entry
                     if !logInMode {
                         Button {
-                            // ADD BUTTON FUNCTIONALITY
+                            showImagePicker.toggle()
                         } label: {
-                            Image(systemName: "person")
-                                .font(.system(size: 34))
-                                .padding()
+                            VStack {
+                                if let image = self.image {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .frame(width: 96, height: 96)
+                                        .scaledToFill()
+                                        .cornerRadius(64)
+                                } else {
+                                    Image(systemName: "person")
+                                        .font(.system(size: 34))
+                                        .padding()
+                                        .foregroundColor(.green) // default person image color
+                                }
+                            }
                         }
                     }
                     
@@ -72,6 +87,9 @@ struct LogInView: View {
                 .ignoresSafeArea()) // background color
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .fullScreenCover(isPresented: $showImagePicker) {
+            ImagePicker(image: $image)
+        }
     }
     
     // log in/sign up function
@@ -98,6 +116,8 @@ struct LogInView: View {
             print("succesfully created new user: \(result?.user.uid ?? "")")
             
             self.logInStatusMsg = "succesfully created new user: \(result?.user.uid ?? "")"
+            
+            self.saveProfileImage()
         }
     }
     
@@ -114,6 +134,29 @@ struct LogInView: View {
             print("succesfully logged in user: \(result?.user.uid ?? "")")
             
             self.logInStatusMsg = "succesfully logged in user: \(result?.user.uid ?? "")"
+        }
+    }
+    
+    // store profile image function
+    private func saveProfileImage() {
+        guard let uid = Auth.auth().currentUser?.uid else { return
+        }
+        
+        let ref = Storage.storage().reference(withPath: uid)
+        guard let imageData = self.image?.jpegData(compressionQuality: 0.5) else { return }
+        ref.putData(imageData, metadata: nil) { metadata, error in
+            if let error = error {
+                self.logInStatusMsg = "failed to push image to storage: \(error.localizedDescription)"
+                return
+            }
+            
+            ref.downloadURL { url, error in
+                if let error = error {
+                    self.logInStatusMsg = "failed to retrieve download url: \(error.localizedDescription)"
+                    return
+                }
+                self.logInStatusMsg = "successfully stored image with url: \(url?.absoluteString ?? "")"
+            }
         }
     }
 }

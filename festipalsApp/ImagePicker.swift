@@ -15,7 +15,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     private let controller = UIImagePickerController()
     
     func makeCoordinator() -> Coordinator {
-       return Coordinator(parent: self)
+        return Coordinator(parent: self)
     }
     
     class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -34,6 +34,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             picker.dismiss(animated: true)
         }
+        
     }
     
     func makeUIViewController(context: Context) -> some UIViewController {
@@ -44,4 +45,5 @@ struct ImagePicker: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
         
     }
+    
 }
