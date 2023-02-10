@@ -8,6 +8,8 @@
 import SwiftUI
 import Firebase
 import FirebaseStorage
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct LogInView: View {
     // log in/sign up picker
@@ -147,17 +149,40 @@ struct LogInView: View {
         ref.putData(imageData, metadata: nil) { metadata, error in
             if let error = error {
                 self.logInStatusMsg = "failed to push image to storage: \(error.localizedDescription)"
+                print("failed to push image to storage: \(error.localizedDescription)")
                 return
             }
             
             ref.downloadURL { url, error in
                 if let error = error {
                     self.logInStatusMsg = "failed to retrieve download url: \(error.localizedDescription)"
+                    print("failed to retrieve download url: \(error.localizedDescription)")
                     return
                 }
                 self.logInStatusMsg = "successfully stored image with url: \(url?.absoluteString ?? "")"
+                print("successfully stored image with url: \(url?.absoluteString ?? "")")
+                
+                guard let url = url else { return }
+                storeUserInfo(profileImageUrl: url)
             }
         }
+    }
+    
+    // create/access user in users collection
+    private func storeUserInfo(profileImageUrl: URL) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let userData = ["email": self.email, "uid": uid, "profileImageUrl": profileImageUrl.absoluteString]
+        
+        Firestore.firestore().collection("users")
+            .document(uid).setData(userData) { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    self.logInStatusMsg = "\(error)"
+                    return
+                }
+                
+                print("success")
+            }
     }
 }
 
