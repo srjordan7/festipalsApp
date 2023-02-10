@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5FB200432995BAA000C885D0 /* festipalsAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB200422995BAA000C885D0 /* festipalsAppApp.swift */; };
-		5FB200452995BAA000C885D0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB200442995BAA000C885D0 /* ContentView.swift */; };
+		5FB200452995BAA000C885D0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB200442995BAA000C885D0 /* LogInView.swift */; };
 		5FB200472995BAA200C885D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FB200462995BAA200C885D0 /* Assets.xcassets */; };
 		5FB2004A2995BAA200C885D0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FB200492995BAA200C885D0 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -16,7 +16,7 @@
 /* Begin PBXFileReference section */
 		5FB2003F2995BAA000C885D0 /* festipalsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = festipalsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FB200422995BAA000C885D0 /* festipalsAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = festipalsAppApp.swift; sourceTree = "<group>"; };
-		5FB200442995BAA000C885D0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5FB200442995BAA000C885D0 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		5FB200462995BAA200C885D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5FB200492995BAA200C885D0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,7 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				5FB200422995BAA000C885D0 /* festipalsAppApp.swift */,
-				5FB200442995BAA000C885D0 /* ContentView.swift */,
+				5FB200442995BAA000C885D0 /* LogInView.swift */,
 				5FB200462995BAA200C885D0 /* Assets.xcassets */,
 				5FB200482995BAA200C885D0 /* Preview Content */,
 			);
@@ -137,7 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FB200452995BAA000C885D0 /* ContentView.swift in Sources */,
+				5FB200452995BAA000C885D0 /* LogInView.swift in Sources */,
 				5FB200432995BAA000C885D0 /* festipalsAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
