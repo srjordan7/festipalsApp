@@ -16,6 +16,7 @@
 		5FB200562995C5CF00C885D0 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5FB200552995C5CF00C885D0 /* FirebaseFirestoreSwift */; };
 		5FB200582995C5CF00C885D0 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5FB200572995C5CF00C885D0 /* FirebaseStorage */; };
 		5FB2005A2995C83F00C885D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FB200592995C83F00C885D0 /* GoogleService-Info.plist */; };
+		5FB2005C2995D33200C885D0 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB2005B2995D33200C885D0 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		5FB200462995BAA200C885D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5FB200492995BAA200C885D0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5FB200592995C83F00C885D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5FB2005B2995D33200C885D0 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			children = (
 				5FB200422995BAA000C885D0 /* festipalsAppApp.swift */,
 				5FB200442995BAA000C885D0 /* LogInView.swift */,
+				5FB2005B2995D33200C885D0 /* ImagePicker.swift */,
 				5FB200462995BAA200C885D0 /* Assets.xcassets */,
 				5FB200592995C83F00C885D0 /* GoogleService-Info.plist */,
 				5FB200482995BAA200C885D0 /* Preview Content */,
@@ -158,6 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FB2005C2995D33200C885D0 /* ImagePicker.swift in Sources */,
 				5FB200452995BAA000C885D0 /* LogInView.swift in Sources */,
 				5FB200432995BAA000C885D0 /* festipalsAppApp.swift in Sources */,
 			);
