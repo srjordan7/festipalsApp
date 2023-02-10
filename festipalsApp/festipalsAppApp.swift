@@ -23,7 +23,7 @@ struct festipalsAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            LogInView()
+            LogInView(completeLoginProcess: {})
         }
     }
 }

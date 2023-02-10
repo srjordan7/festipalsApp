@@ -12,15 +12,17 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct LogInView: View {
+    let completeLoginProcess: () -> ()
+    
     // log in/sign up picker
-    @State var logInMode = false
+    @State private var logInMode = false
     // email/pass field variables
-    @State var email = ""
-    @State var password = ""
-    @State var name = ""
+    @State private var email = ""
+    @State private var password = ""
+    @State private var name = ""
     // image picker
-    @State var showImagePicker = false
-    @State var image: UIImage?
+    @State private var showImagePicker = false
+    @State private var image: UIImage?
         
     var body: some View {
         NavigationView {
@@ -59,7 +61,9 @@ struct LogInView: View {
                     
                     // email/pass entry
                     Group {
-                        TextField("name", text: $name)
+                        if !logInMode {
+                            TextField("name", text: $name)
+                        }
                         TextField("email", text: $email)
                             .keyboardType(.emailAddress)
                         SecureField("password", text: $password)
@@ -109,6 +113,11 @@ struct LogInView: View {
     
     // create new account function
     private func createNewAccount() {
+        if self.image == nil {
+            self.logInStatusMsg = "you must select an avatar image"
+            return
+        }
+        
         Auth.auth().createUser(withEmail: email, password: password) {
             result, error in
             if let error = error {
@@ -138,6 +147,8 @@ struct LogInView: View {
             print("succesfully logged in user: \(result?.user.uid ?? "")")
             
             self.logInStatusMsg = "succesfully logged in user: \(result?.user.uid ?? "")"
+            
+            self.completeLoginProcess()
         }
     }
     
@@ -184,12 +195,16 @@ struct LogInView: View {
                 }
                 
                 print("success")
+                
+                self.completeLoginProcess()
             }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView()
+        LogInView(completeLoginProcess: {
+            
+        })
     }
 }

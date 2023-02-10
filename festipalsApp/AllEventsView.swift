@@ -8,21 +8,21 @@
 import SwiftUI
 import Firebase
 
-struct User {
-    let uid, email, profileImageUrl, name: String
-}
-
 class AllEventsViewModel: ObservableObject {
     
     @Published var errorMsg = ""
     @Published var user: User?
     
     init() {
+        DispatchQueue.main.async {
+            self.currentlyLoggedOut = Auth.auth().currentUser?.uid == nil
+        }
+        
         fetchCurrentUser()
     }
     
     // get current user data
-    private func fetchCurrentUser() {
+    func fetchCurrentUser() {
         guard let uid = Auth.auth().currentUser?.uid else {
             self.errorMsg = "could not find user data"
             return }
@@ -39,14 +39,16 @@ class AllEventsViewModel: ObservableObject {
                 return }
             
             // build User from data
-            let uid = data["uid"] as? String ?? ""
-            let email = data["email"] as? String ?? ""
-            let profileImageUrl = data["profileImageUrl"] as? String ?? ""
-            let name = data["name"] as? String ?? ""
-            self.user = User(uid: uid, email: email, profileImageUrl: profileImageUrl, name: name)
+            self.user = .init(data: data)
         }
     }
     
+    @Published var currentlyLoggedOut = false
+    
+    func signOut() {
+        currentlyLoggedOut.toggle()
+        try? Auth.auth().signOut()
+    }
 }
 
 struct AllEventsView: View {
@@ -82,15 +84,23 @@ struct AllEventsView: View {
                         }
                     }
                     .padding()
+                    // log out confirmation sheet
                     .actionSheet(isPresented: $showLogOutOptions) {
                         .init(title: Text("log out"), message: Text("are you sure you want to log out?"), buttons: [
                             .destructive(Text("yes"), action: {
-                                // ADD LOG OUT FUNCTIONALITY
+                                vm.signOut()
                             }),
                             .cancel(Text("nevermind"))
                         ])
                     }
+                    .fullScreenCover(isPresented: $vm.currentlyLoggedOut, onDismiss: nil) {
+                        LogInView(completeLoginProcess: {
+                            self.vm.currentlyLoggedOut = false
+                            self.vm.fetchCurrentUser()
+                        })
+                    }
                     
+                    // personalized heading
                     Text("hi, \(vm.user?.name ?? "")!")
                     Text("upcoming events")
                         .font(.system(size: 26))
