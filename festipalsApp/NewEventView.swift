@@ -17,9 +17,6 @@ struct NewEventView: View {
         NavigationView {
             VStack {
                 Spacer()
-                Text("plan a new event")
-                    .font(.system(size: 24))
-                    .padding(.bottom)
                 VStack {
                     // event name entry
                     TextField("event name", text: $event.eventName)
@@ -76,7 +73,7 @@ struct NewEventView: View {
                 }
             }
         }
-        
+        .navigationBarBackButtonHidden()
     }
 }
 
