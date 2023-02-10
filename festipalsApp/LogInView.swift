@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct LogInView: View {
     // log in/sign up picker
@@ -13,7 +14,7 @@ struct LogInView: View {
     // email/pass field variables
     @State var email = ""
     @State var password = ""
-    
+        
     var body: some View {
         NavigationView {
             ScrollView {
@@ -47,12 +48,13 @@ struct LogInView: View {
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
                     .padding(12)
-                    .background(.white) // text field background color
+//                    .background(.white) // text field background color
                     
                     
                     // create account button
                     Button {
                         signInUp()
+                        // ADD ALERT FOR ERRORS
                     } label: {
                         HStack {
                             Spacer()
@@ -69,14 +71,49 @@ struct LogInView: View {
             .background(Color("BackgroundColor")
                 .ignoresSafeArea()) // background color
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     // log in/sign up function
     private func signInUp() {
         if logInMode {
-            // LOG IN TO FIREBASE WITH EXISTING CREDENTIALS
+            logInAccount()
         } else {
-            // SIGN UP TO FIREBASE WITH NEW CREDENTIALS
+            createNewAccount()
+        }
+    }
+    
+    @State var logInStatusMsg = ""
+    
+    // create new account function
+    private func createNewAccount() {
+        Auth.auth().createUser(withEmail: email, password: password) {
+            result, error in
+            if let error = error {
+                print("failed to create user: \(error.localizedDescription)")
+                self.logInStatusMsg = "failed to create user: \(error.localizedDescription)"
+                return
+            }
+            
+            print("succesfully created new user: \(result?.user.uid ?? "")")
+            
+            self.logInStatusMsg = "succesfully created new user: \(result?.user.uid ?? "")"
+        }
+    }
+    
+    // log in existing account function
+    private func logInAccount() {
+        Auth.auth().signIn(withEmail: email, password: password) {
+            result, error in
+            if let error = error {
+                print("failed to log in user: \(error.localizedDescription)")
+                self.logInStatusMsg = "failed to log in user: \(error.localizedDescription)"
+                return
+            }
+            
+            print("succesfully logged in user: \(result?.user.uid ?? "")")
+            
+            self.logInStatusMsg = "succesfully logged in user: \(result?.user.uid ?? "")"
         }
     }
 }
