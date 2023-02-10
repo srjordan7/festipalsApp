@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F53F0D82996498200BB9DA1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F53F0D72996498200BB9DA1 /* Event.swift */; };
+		5F53F0DA2996567500BB9DA1 /* NewEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F53F0D92996567500BB9DA1 /* NewEventViewModel.swift */; };
 		5FB200432995BAA000C885D0 /* festipalsAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB200422995BAA000C885D0 /* festipalsAppApp.swift */; };
 		5FB200452995BAA000C885D0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB200442995BAA000C885D0 /* LogInView.swift */; };
 		5FB200472995BAA200C885D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FB200462995BAA200C885D0 /* Assets.xcassets */; };
@@ -19,9 +21,12 @@
 		5FB2005C2995D33200C885D0 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB2005B2995D33200C885D0 /* ImagePicker.swift */; };
 		5FB2005E2996010100C885D0 /* AllEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB2005D2996010100C885D0 /* AllEventsView.swift */; };
 		5FB2006429962F8700C885D0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB2006329962F8700C885D0 /* User.swift */; };
+		5FB200662996379C00C885D0 /* NewEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB200652996379C00C885D0 /* NewEventView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F53F0D72996498200BB9DA1 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		5F53F0D92996567500BB9DA1 /* NewEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventViewModel.swift; sourceTree = "<group>"; };
 		5FB2003F2995BAA000C885D0 /* festipalsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = festipalsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FB200422995BAA000C885D0 /* festipalsAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = festipalsAppApp.swift; sourceTree = "<group>"; };
 		5FB200442995BAA000C885D0 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
@@ -31,6 +36,7 @@
 		5FB2005B2995D33200C885D0 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		5FB2005D2996010100C885D0 /* AllEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEventsView.swift; sourceTree = "<group>"; };
 		5FB2006329962F8700C885D0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5FB200652996379C00C885D0 /* NewEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +76,8 @@
 				5FB200422995BAA000C885D0 /* festipalsAppApp.swift */,
 				5FB200442995BAA000C885D0 /* LogInView.swift */,
 				5FB2005D2996010100C885D0 /* AllEventsView.swift */,
+				5FB200652996379C00C885D0 /* NewEventView.swift */,
+				5F53F0D92996567500BB9DA1 /* NewEventViewModel.swift */,
 				5FB2006229962F6300C885D0 /* Models */,
 				5FB2005B2995D33200C885D0 /* ImagePicker.swift */,
 				5FB200462995BAA200C885D0 /* Assets.xcassets */,
@@ -91,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				5FB2006329962F8700C885D0 /* User.swift */,
+				5F53F0D72996498200BB9DA1 /* Event.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -177,8 +186,11 @@
 			files = (
 				5FB2005C2995D33200C885D0 /* ImagePicker.swift in Sources */,
 				5FB200452995BAA000C885D0 /* LogInView.swift in Sources */,
+				5F53F0DA2996567500BB9DA1 /* NewEventViewModel.swift in Sources */,
 				5FB200432995BAA000C885D0 /* festipalsAppApp.swift in Sources */,
 				5FB2006429962F8700C885D0 /* User.swift in Sources */,
+				5FB200662996379C00C885D0 /* NewEventView.swift in Sources */,
+				5F53F0D82996498200BB9DA1 /* Event.swift in Sources */,
 				5FB2005E2996010100C885D0 /* AllEventsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

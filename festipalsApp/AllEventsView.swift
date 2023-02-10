@@ -127,25 +127,34 @@ struct AllEventsView: View {
                 .padding(.bottom, 50)
             }
             .overlay(
-                // new event button
-                Button {
-                    
-                } label: {
-                    HStack {
-                        Spacer()
-                        Text("+ new event")
-                        Spacer()
-                    }
-                    .foregroundColor(.white) // button text color
-                    .padding(.vertical)
-                    .background(Color.green) // button color
-                    .cornerRadius(42)
-                    .padding(.horizontal)
-                    .shadow(radius: 5)
-                }, alignment: .bottom)
+                newEventButton, alignment: .bottom)
             .navigationBarHidden(true)
             .background(Color("BackgroundColor")
                 .ignoresSafeArea()) // background color
+        }
+    }
+    
+    @State var showNewEventScreen = false
+    
+    // new event button
+    private var newEventButton: some View {
+        Button {
+            showNewEventScreen.toggle()
+        } label: {
+            HStack {
+                Spacer()
+                Text("+ new event")
+                Spacer()
+            }
+            .foregroundColor(.white) // button text color
+            .padding(.vertical)
+                .background(Color.green) // button color
+                .cornerRadius(42)
+                .padding(.horizontal)
+                .shadow(radius: 5)
+        }
+        .fullScreenCover(isPresented: $showNewEventScreen) {
+            NewEventView(event: Event())
         }
     }
 }

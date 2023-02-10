@@ -20,10 +20,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct festipalsAppApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var eventVM = NewEventViewModel()
     
     var body: some Scene {
         WindowGroup {
-            LogInView(completeLoginProcess: {})
+            AllEventsView()
+                .environmentObject(eventVM)
         }
     }
 }
