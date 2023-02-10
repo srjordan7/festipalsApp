@@ -17,6 +17,7 @@ struct LogInView: View {
     // email/pass field variables
     @State var email = ""
     @State var password = ""
+    @State var name = ""
     // image picker
     @State var showImagePicker = false
     @State var image: UIImage?
@@ -58,6 +59,7 @@ struct LogInView: View {
                     
                     // email/pass entry
                     Group {
+                        TextField("name", text: $name)
                         TextField("email", text: $email)
                             .keyboardType(.emailAddress)
                         SecureField("password", text: $password)
@@ -171,7 +173,7 @@ struct LogInView: View {
     // create/access user in users collection
     private func storeUserInfo(profileImageUrl: URL) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        let userData = ["email": self.email, "uid": uid, "profileImageUrl": profileImageUrl.absoluteString]
+        let userData = ["email": self.email, "uid": uid, "profileImageUrl": profileImageUrl.absoluteString, "name": self.name]
         
         Firestore.firestore().collection("users")
             .document(uid).setData(userData) { error in
