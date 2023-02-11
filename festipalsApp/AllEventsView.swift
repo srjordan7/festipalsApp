@@ -61,7 +61,7 @@ struct AllEventsView: View {
                     }
                     
                     // personalized heading
-                    Text("hi, \(currentUserVM.user?.name ?? "")!")
+                    Text("hi \(currentUserVM.user?.name ?? "")!")
                     Text("upcoming events")
                         .font(.system(size: 26))
                 }

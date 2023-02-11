@@ -10,14 +10,23 @@ import SwiftUI
 struct EventHomeView: View {
     @State var event: Event
     @Environment(\.dismiss) private var dismiss
+    var today = Date()
     
     var body: some View {
         NavigationView {
             VStack {
                 VStack {
                     Text("get ready for")
-                    Text("\(event.eventName)!")
+                    Text("\(event.eventName)")
+                    Text("at \(event.venue)!")
                 }
+                VStack {
+                    var toDate = stringToDate()
+                    var daysLeft = countdown(toDate: toDate)
+                    Text("\(daysLeft)")
+                    Text("days left")
+                }
+                
             }
             .background(Color("BackgroundColor")
                 .ignoresSafeArea()) // background color
@@ -40,6 +49,24 @@ struct EventHomeView: View {
             }
         }
         .navigationBarBackButtonHidden()
+    }
+    
+    // convert string to date
+    func stringToDate() -> Date {
+        let string = event.firstDayString
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, y"
+        guard let eventDate = dateFormatter.date(from: string) else { return event.firstDay }
+        return eventDate
+    }
+    
+    // countdown to event
+    func countdown(toDate: Date) -> Int {
+        let today = Date()
+
+        let diffs = Calendar.current.dateComponents([.day], from: today, to: toDate)
+
+        return diffs.day!
     }
 }
 
