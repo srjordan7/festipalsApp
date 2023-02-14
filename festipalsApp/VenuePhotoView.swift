@@ -25,7 +25,7 @@ struct VenuePhotoView: View {
                         .resizable()
                         .scaledToFit()
                 }
-                TextField("description", text: $venuePhoto.description)
+                TextField("end of day meeting spot", text: $venuePhoto.eodLocation)
                     .padding(.all, 25)
                 Spacer()
             }

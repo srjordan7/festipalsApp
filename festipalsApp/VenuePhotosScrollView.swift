@@ -27,7 +27,8 @@ struct VenuePhotosScrollView: View {
                                 selectedVenueId = photo.id ?? ""
                                 showDeleteOption.toggle()
                             }
-                        Text("\(photo.description)")
+                        Text("meet here at end of day:")
+                        Text("\(photo.eodLocation)")
                     } placeholder: {
                         ProgressView()
                     }

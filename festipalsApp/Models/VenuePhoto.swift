@@ -12,9 +12,9 @@ import FirebaseFirestoreSwift
 struct VenuePhoto: Identifiable, Codable {
     @DocumentID var id: String?
     var imageURLString = ""
-    var description = ""
+    var eodLocation = ""
     
     var dictionary: [String: Any] {
-        return ["imageURLString": imageURLString, "description": description]
+        return ["imageURLString": imageURLString, "eodLocation": eodLocation]
     }
 }
