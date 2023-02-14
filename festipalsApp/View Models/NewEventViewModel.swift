@@ -66,6 +66,25 @@ class NewEventViewModel: ObservableObject {
         }
     }
     
+    func deleteEvent(event: Event) async -> Bool {
+        let db = Firestore.firestore()
+        let uid = Auth.auth().currentUser?.uid
+        guard let eventId = event.id else {
+            print("could not find event.id")
+            return false
+        }
+        
+        do {
+            let _ = try await db.collection("users").document(uid ?? "").collection("events").document(eventId).delete()
+            print("event successfully deleted")
+            self.getEventData()
+            return true
+        } catch {
+            print("error deleting event \(error.localizedDescription)")
+            return false
+        }
+    }
+    
     func saveSetlistImage(event: Event, setlistPhoto: SetlistPhoto, image: UIImage) async -> Bool {
         guard let eventId = event.id else {
             print("event.id == nil")

@@ -48,7 +48,7 @@ struct EventHomeView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: NewEventView(event: event)) {
-                        Text("update")
+                        Image(systemName: "pencil")
                             .foregroundColor(.green)             
                     }
                 }
