@@ -157,7 +157,8 @@ struct LogInView: View {
         guard let uid = Auth.auth().currentUser?.uid else { return
         }
         
-        let ref = Storage.storage().reference(withPath: uid)
+        let ref = Storage.storage().reference().child("profilePics/\(uid).jpeg")
+//        (withPath: uid)
         guard let imageData = self.image?.jpegData(compressionQuality: 0.5) else { return }
         ref.putData(imageData, metadata: nil) { metadata, error in
             if let error = error {
