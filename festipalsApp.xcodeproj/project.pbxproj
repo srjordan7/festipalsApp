@@ -11,6 +11,8 @@
 		5F53F0DA2996567500BB9DA1 /* NewEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F53F0D92996567500BB9DA1 /* NewEventViewModel.swift */; };
 		5F53F0DE299694FA00BB9DA1 /* EventHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F53F0DD299694FA00BB9DA1 /* EventHomeView.swift */; };
 		5F53F0E02996FA9200BB9DA1 /* CurrentUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F53F0DF2996FA9200BB9DA1 /* CurrentUserViewModel.swift */; };
+		5F53F0E5299B133200BB9DA1 /* EventTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F53F0E4299B133200BB9DA1 /* EventTabBar.swift */; };
+		5F53F0E7299B1A5900BB9DA1 /* SetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F53F0E6299B1A5900BB9DA1 /* SetsView.swift */; };
 		5FB200432995BAA000C885D0 /* festipalsAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB200422995BAA000C885D0 /* festipalsAppApp.swift */; };
 		5FB200452995BAA000C885D0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB200442995BAA000C885D0 /* LogInView.swift */; };
 		5FB200472995BAA200C885D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FB200462995BAA200C885D0 /* Assets.xcassets */; };
@@ -31,6 +33,8 @@
 		5F53F0D92996567500BB9DA1 /* NewEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventViewModel.swift; sourceTree = "<group>"; };
 		5F53F0DD299694FA00BB9DA1 /* EventHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHomeView.swift; sourceTree = "<group>"; };
 		5F53F0DF2996FA9200BB9DA1 /* CurrentUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserViewModel.swift; sourceTree = "<group>"; };
+		5F53F0E4299B133200BB9DA1 /* EventTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTabBar.swift; sourceTree = "<group>"; };
+		5F53F0E6299B1A5900BB9DA1 /* SetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsView.swift; sourceTree = "<group>"; };
 		5FB2003F2995BAA000C885D0 /* festipalsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = festipalsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FB200422995BAA000C885D0 /* festipalsAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = festipalsAppApp.swift; sourceTree = "<group>"; };
 		5FB200442995BAA000C885D0 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
@@ -90,6 +94,8 @@
 				5FB200442995BAA000C885D0 /* LogInView.swift */,
 				5FB2005D2996010100C885D0 /* AllEventsView.swift */,
 				5F53F0DD299694FA00BB9DA1 /* EventHomeView.swift */,
+				5F53F0E4299B133200BB9DA1 /* EventTabBar.swift */,
+				5F53F0E6299B1A5900BB9DA1 /* SetsView.swift */,
 				5FB200652996379C00C885D0 /* NewEventView.swift */,
 				5F53F0E12996FB7F00BB9DA1 /* View Models */,
 				5FB2006229962F6300C885D0 /* Models */,
@@ -200,7 +206,9 @@
 			files = (
 				5FB2005C2995D33200C885D0 /* ImagePicker.swift in Sources */,
 				5FB200452995BAA000C885D0 /* LogInView.swift in Sources */,
+				5F53F0E5299B133200BB9DA1 /* EventTabBar.swift in Sources */,
 				5F53F0DA2996567500BB9DA1 /* NewEventViewModel.swift in Sources */,
+				5F53F0E7299B1A5900BB9DA1 /* SetsView.swift in Sources */,
 				5FB200432995BAA000C885D0 /* festipalsAppApp.swift in Sources */,
 				5FB2006429962F8700C885D0 /* User.swift in Sources */,
 				5FB200662996379C00C885D0 /* NewEventView.swift in Sources */,

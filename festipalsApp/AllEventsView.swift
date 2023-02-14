@@ -90,7 +90,6 @@ struct AllEventsView: View {
                 }
                 .padding(.bottom, 50)
             }
-//            .onAppear(perform: self.eventsVm.getEventData)
             .overlay(
                 newEventButton, alignment: .bottom)
             .navigationBarHidden(true)

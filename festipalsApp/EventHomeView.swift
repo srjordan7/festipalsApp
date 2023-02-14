@@ -12,21 +12,27 @@ struct EventHomeView: View {
     @Environment(\.dismiss) private var dismiss
     var today = Date()
     
+    @State var selectedTab: Tabs = .home
+    
     var body: some View {
         NavigationView {
             VStack {
                 VStack {
-                    Text("get ready for")
-                    Text("\(event.eventName)")
-                    Text("at \(event.venue)!")
+                    VStack {
+                        Text("get ready for")
+                        Text("\(event.eventName)")
+                        Text("at \(event.venue)!")
+                    }
+                    Spacer()
+                    VStack {
+                        let toDate = stringToDate()
+                        let daysLeft = countdown(toDate: toDate)
+                        Text("\(daysLeft)")
+                        Text("days left")
+                    }
+                    Spacer()
+                    EventTabBar(selectedTab: $selectedTab)
                 }
-                VStack {
-                    var toDate = stringToDate()
-                    var daysLeft = countdown(toDate: toDate)
-                    Text("\(daysLeft)")
-                    Text("days left")
-                }
-                
             }
             .background(Color("BackgroundColor")
                 .ignoresSafeArea()) // background color
@@ -36,13 +42,13 @@ struct EventHomeView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("all events")
+                        Text("events")
                             .foregroundColor(.green)
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: NewEventView(event: event)) {
-                        Text("update event")
+                        Text("update")
                             .foregroundColor(.green)             
                     }
                 }
