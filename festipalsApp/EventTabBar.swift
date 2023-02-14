@@ -42,7 +42,7 @@ struct EventTabBar: View {
             }
             
             Spacer()
-            NavigationLink(destination: SetlistsView(event: event)) {
+            NavigationLink(destination: GroupView(event: event)) {
                 Image(systemName: "person.2")
                     .font(.system(size: 24))
                     .foregroundColor(selectedTab == .group ? .black : .green)

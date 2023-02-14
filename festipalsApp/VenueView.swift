@@ -76,6 +76,6 @@ struct VenueView: View {
 
 struct VenueView_Previews: PreviewProvider {
     static var previews: some View {
-        VenueView(event: Event())
+        VenueView(event: Event(), previewRunning: true)
     }
 }
