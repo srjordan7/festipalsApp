@@ -9,14 +9,16 @@ import SwiftUI
 
 struct SetsView: View {
     @State var selectedTab: Tabs = .sets
+    @State var event: Event
+    
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-        EventTabBar(selectedTab: $selectedTab)
+        EventTabBar(selectedTab: $selectedTab, event: event)
     }
 }
 
 struct SetsView_Previews: PreviewProvider {
     static var previews: some View {
-        SetsView()
+        SetsView(event: Event())
     }
 }

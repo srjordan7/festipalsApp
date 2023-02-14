@@ -31,7 +31,7 @@ struct EventHomeView: View {
                         Text("days left")
                     }
                     Spacer()
-                    EventTabBar(selectedTab: $selectedTab)
+                    EventTabBar(selectedTab: $selectedTab, event: event)
                 }
             }
             .background(Color("BackgroundColor")
