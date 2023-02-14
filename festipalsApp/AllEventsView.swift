@@ -96,6 +96,7 @@ struct AllEventsView: View {
             .background(Color("BackgroundColor")
                 .ignoresSafeArea()) // background color
         }
+        .navigationBarBackButtonHidden()
     }
     
     @State var showNewEventScreen = false

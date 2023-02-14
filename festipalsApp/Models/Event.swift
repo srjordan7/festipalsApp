@@ -17,9 +17,10 @@ struct Event: Identifiable, Codable {
     var firstDayString = ""
     var lastDay = Date()
     var lastDayString = ""
+    var setlistImgUrl = ""
     
     var dictionary: [String: Any] {
-        return ["eventName": eventName, "venue": venue, "multiDay": multiDay, "firstDay": firstDay, "firstDayString": dateToString(date: firstDay), "lastDay": lastDay, "lastDayString": dateToString(date: lastDay)]
+        return ["eventName": eventName, "venue": venue, "multiDay": multiDay, "firstDay": firstDay, "firstDayString": dateToString(date: firstDay), "lastDay": lastDay, "lastDayString": dateToString(date: lastDay), "setlistImgUrl": setlistImgUrl]
     }
     
     func dateToString(date: Date) -> String {
