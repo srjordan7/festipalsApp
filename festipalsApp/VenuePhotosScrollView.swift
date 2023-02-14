@@ -35,7 +35,7 @@ struct VenuePhotosScrollView: View {
                 }
             }
             .actionSheet(isPresented: $showDeleteOption) {
-                .init(title: Text("delete setlist"), message: Text("are you sure you want to delete this setlist?"), buttons: [
+                .init(title: Text("delete map"), message: Text("are you sure you want to delete this map?"), buttons: [
                     .destructive(Text("yes"), action: {
                         Task {
                             await eventVM.deleteVenueImage(event: event, venue: selectedVenueId)

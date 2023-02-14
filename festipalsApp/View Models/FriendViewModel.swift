@@ -38,4 +38,22 @@ class FriendViewModel: ObservableObject {
             }
         }
     }
+    
+    func deleteFriend(event: Event, friend: String) async -> Bool {
+        let db = Firestore.firestore()
+        let uid = Auth.auth().currentUser?.uid
+        guard let eventId = event.id else {
+            print("could not find event.id")
+            return false
+        }
+        
+        do {
+            let _ = try await db.collection("users").document(uid ?? "").collection("events").document(eventId).collection("friends").document(friend).delete()
+            print("friend successfully deleted")
+            return true
+        } catch {
+            print("error deleting friend \(error.localizedDescription)")
+            return false
+        }
+    }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct AddFriendView: View {
     @State var event: Event
     @State var friend: Friend
-    @StateObject var friendVM = FriendViewModel()
+    @EnvironmentObject var friendVM: FriendViewModel
     
     @Environment(\.dismiss) private var dismiss
     
@@ -64,5 +64,6 @@ struct AddFriendView: View {
 struct AddFriendView_Previews: PreviewProvider {
     static var previews: some View {
         AddFriendView(event: Event(), friend: Friend())
+            .environmentObject(FriendViewModel())
     }
 }

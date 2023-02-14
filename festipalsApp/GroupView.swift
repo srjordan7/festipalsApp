@@ -22,14 +22,7 @@ struct GroupView: View {
                 Text("group")
                 Spacer()
                 
-                ScrollView {
-                    ForEach(friends) { friend in
-                        Text("\(friend.name)")
-                        Link("\(friend.phoneNumber)", destination: URL(string: "imessage:\(friend.phoneNumber)")!)
-//                        Text("\(friend.phoneNumber)")
-                        Divider()
-                    }
-                }
+                GroupScrollView(friends: friends, event: event)
                 
                 Spacer()
                 
