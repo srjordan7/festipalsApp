@@ -35,7 +35,7 @@ struct EventTabBar: View {
             }
             
             Spacer()
-            NavigationLink(destination: SetlistsView(event: event)) {
+            NavigationLink(destination: VenueView(event: event)) {
                 Image(systemName: "map")
                     .font(.system(size: 24))
                     .foregroundColor(selectedTab == .venue ? .black : .green)

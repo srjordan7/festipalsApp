@@ -132,4 +132,71 @@ class NewEventViewModel: ObservableObject {
             return false
         }
     }
+    
+    func saveVenueImage(event: Event, venuePhoto: VenuePhoto, image: UIImage) async -> Bool {
+        guard let eventId = event.id else {
+            print("event.id == nil")
+            return false
+        }
+        
+        let venuePhotoName = UUID().uuidString
+        let storage = Storage.storage()
+        let storageRef = storage.reference().child("\(eventId)/venuePics/\(venuePhotoName).jpeg")
+        
+        guard let resizedVenueImage = image.jpegData(compressionQuality: 0.5) else {
+            print("could not resize image")
+            return false
+        }
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        var venueImageURLString = ""
+        
+        do {
+            let _ = try await storageRef.putDataAsync(resizedVenueImage, metadata: metadata)
+            print("image saved")
+            do {
+                let venueImageURL = try await storageRef.downloadURL()
+                venueImageURLString = "\(venueImageURL)"
+            } catch {
+                print("could not get URL after saving image \(error.localizedDescription)")
+            }
+        } catch {
+            print("error uploading image to storage")
+            return false
+        }
+        
+        let db = Firestore.firestore()
+        let uid = Auth.auth().currentUser?.uid ?? ""
+        
+        do {
+            var newVenuePhoto = venuePhoto
+            newVenuePhoto.imageURLString = venueImageURLString
+            try await db.collection("users").document(uid).collection("events").document(eventId).collection("venuePhotos").document(venuePhotoName).setData(newVenuePhoto.dictionary)
+            print("data updated successfully")
+            return true
+        } catch {
+            print("could not update data in setlistPhotos")
+            return false
+        }
+    }
+    
+    func deleteVenueImage(event: Event, venue: String) async -> Bool {
+        let db = Firestore.firestore()
+        let uid = Auth.auth().currentUser?.uid
+        guard let eventId = event.id else {
+            print("could not find event.id")
+            return false
+        }
+        
+        do {
+            let _ = try await db.collection("users").document(uid ?? "").collection("events").document(eventId).collection("venuePhotos").document(venue).delete()
+            print("venue successfully deleted")
+            return true
+        } catch {
+            print("error deleting venue \(error.localizedDescription)")
+            return false
+        }
+    }
 }
