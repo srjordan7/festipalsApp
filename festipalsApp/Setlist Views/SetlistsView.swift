@@ -22,10 +22,9 @@ struct SetlistsView: View {
     var body: some View {
         NavigationView {
             VStack {
-//                Spacer()
                 Text("setlist")
                     .font(.custom("Righteous-Regular", size: 30))
-                    .padding(.top, 25)
+                    .padding(25)
                     .foregroundColor(Color("MainColor"))
                 
                 ZStack {

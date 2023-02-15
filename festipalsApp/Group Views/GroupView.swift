@@ -21,8 +21,7 @@ struct GroupView: View {
             VStack {
                 Text("group")
                     .font(.custom("Righteous-Regular", size: 30))
-                    .padding(.top, 25)
-                    .padding(.bottom, 25)
+                    .padding(25)
                     .foregroundColor(Color("MainColor"))
                 
                 Spacer()

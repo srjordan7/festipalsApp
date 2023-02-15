@@ -25,7 +25,7 @@ struct VenueView: View {
                 Spacer()
                 Text("venue map")
                     .font(.custom("Righteous-Regular", size: 30))
-                    .padding(.top, 25)
+                    .padding(25)
                     .foregroundColor(Color("MainColor"))
                 
                 ZStack {
