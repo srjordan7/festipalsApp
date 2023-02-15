@@ -28,9 +28,13 @@ struct VenuePhotosScrollView: View {
                                 showDeleteOption.toggle()
                             }
                         Text("meet here at end of day:")
+                            .font(.custom("SofiaSans-Regular", size: 18))
                         Text("\(photo.eodLocation)")
+                            .font(.custom("SofiaSans-Regular", size: 20))
+                            .foregroundColor(Color("MainColor"))
                     } placeholder: {
-                        ProgressView()
+                        Text("add a map!")
+                            .font(.custom("SofiaSans-Regular", size: 18))
                     }
                     .padding()
                 }
@@ -46,6 +50,8 @@ struct VenuePhotosScrollView: View {
                 ])
             }
         }
+        .background(Color("BackgroundColor")
+                        .ignoresSafeArea()) // background color
     }
 }
 

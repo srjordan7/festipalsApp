@@ -21,18 +21,22 @@ struct SetlistPhotoView: View {
                 Spacer()
                 ZStack {
                     Text("please cancel and select again")
-                        .font(.system(size: 13))
+                        .font(.custom("SofiaSans-Regular", size: 13))
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
                 }
                 Text("pick day")
+                    .font(.custom("Righteous-Regular", size: 30))
+                    .foregroundColor(Color("MainColor"))
                 Picker("select day", selection: $setlistPhoto.description) {
                     ForEach(setDays, id: \.self) {
                         if $0 == "0" {
                             Text("all")
+                                .font(.custom("SofiaSans-Regular", size: 18))
                         } else {
                             Text($0)
+                                .font(.custom("SofiaSans-Regular", size: 18))
                         }
                     }
                 }
@@ -45,7 +49,8 @@ struct SetlistPhotoView: View {
                     Button("cancel") {
                         dismiss()
                     }
-                    .foregroundColor(.green)
+                    .font(.custom("SofiaSans-Regular", size: 18))
+                    .foregroundColor(Color("MainColor"))
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("save") {
@@ -56,12 +61,14 @@ struct SetlistPhotoView: View {
                             }
                         }
                     }
-                    .foregroundColor(.green)
+                    .font(.custom("SofiaSans-Regular", size: 18))
+                    .foregroundColor(Color("MainColor"))
                 }
             }
             .background(Color("BackgroundColor")
                 .ignoresSafeArea()) // background color
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

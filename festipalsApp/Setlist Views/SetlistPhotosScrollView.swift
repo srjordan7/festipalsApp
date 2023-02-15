@@ -31,11 +31,14 @@ struct SetlistPhotosScrollView: View {
                             }
                         if photo.description == "0" {
                             Text("all days")
+                                .font(.custom("SofiaSans-Regular", size: 18))
                         } else {
                             Text("day \(photo.description)")
+                                .font(.custom("SofiaSans-Regular", size: 18))
                         }
                     } placeholder: {
-                        ProgressView()
+                        Text("add a setlist!")
+                            .font(.custom("SofiaSans-Regular", size: 18))
                     }
                     .padding()
                 }
@@ -51,6 +54,8 @@ struct SetlistPhotosScrollView: View {
                 ])
             }
         }
+        .background(Color("BackgroundColor")
+            .ignoresSafeArea()) // background color
     }
 }
 

@@ -22,26 +22,38 @@ struct SetlistsView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Spacer()
+//                Spacer()
                 Text("setlist")
-                    .font(.system(size: 26))
-                SetlistPhotosScrollView(photos: setlistPhotos, event: event)
+                    .font(.custom("Righteous-Regular", size: 30))
+                    .padding(.top, 25)
+                    .foregroundColor(Color("MainColor"))
+                
+                ZStack {
+                    Text("add a setlist!")
+                        .font(.custom("SofiaSans-Regular", size: 18))
+                    
+                    SetlistPhotosScrollView(photos: setlistPhotos, event: event)
+                }
+                
+                
                 Spacer()
+                
                 EventTabBar(selectedTab: $selectedTab, event: event)
             }
             .toolbar{
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink(destination: AllEventsView()) {
                         Text("events")
-                            .foregroundColor(.green)
+                            .font(.custom("SofiaSans-Regular", size: 18))
+                            .foregroundColor(Color("MainColor"))
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     PhotosPicker(selection: $selectedPhoto, matching: .images, preferredItemEncoding: .automatic) {
                         Image(systemName: "plus")
-                            .foregroundColor(.green)
+                            .foregroundColor(Color("MainColor"))
                     }
-                    .tint(.green)
+                    .tint(Color("MainColor"))
                     .onChange(of: selectedPhoto) { newValue in
                         Task {
                             do {

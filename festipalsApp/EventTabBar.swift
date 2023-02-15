@@ -27,7 +27,7 @@ struct EventTabBar: View {
                 NavigationLink(destination: SetlistsView(event: event)) {
                     Image(systemName: "hifispeaker.2")
                         .font(.system(size: 24))
-                        .foregroundColor(selectedTab == .setlists ? .black : .green)
+                        .foregroundColor(selectedTab == .setlists ? .green : Color("MainColor"))
                 }
             }
             
@@ -36,7 +36,7 @@ struct EventTabBar: View {
                 NavigationLink(destination: VenueView(event: event)) {
                     Image(systemName: "map")
                         .font(.system(size: 24))
-                        .foregroundColor(selectedTab == .venue ? .black : .green)
+                        .foregroundColor(selectedTab == .venue ? .green : Color("MainColor"))
                 }
             }
             
@@ -45,7 +45,7 @@ struct EventTabBar: View {
                 NavigationLink(destination: EventHomeView(event: event)) {
                     Image(systemName: "info.circle")
                         .font(.system(size: 24))
-                        .foregroundColor(selectedTab == .home ? .black : .green)
+                        .foregroundColor(selectedTab == .home ? .green : Color("MainColor"))
                 }
             }
             
@@ -54,7 +54,7 @@ struct EventTabBar: View {
                 NavigationLink(destination: GroupView(event: event)) {
                     Image(systemName: "person.2")
                         .font(.system(size: 24))
-                        .foregroundColor(selectedTab == .group ? .black : .green)
+                        .foregroundColor(selectedTab == .group ? .green : Color("MainColor"))
                 }
             }
             
@@ -65,7 +65,7 @@ struct EventTabBar: View {
                 } label: {
                     Image(systemName: "trash")
                         .font(.system(size: 24))
-                        .foregroundColor(.green)
+                        .foregroundColor(Color("MainColor"))
                 }
             }
             

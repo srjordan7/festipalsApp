@@ -24,7 +24,7 @@ struct festipalsAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            AllEventsView()
+            LogInView()
                 .environmentObject(eventVM)
         }
     }

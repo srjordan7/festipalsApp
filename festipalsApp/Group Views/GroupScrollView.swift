@@ -19,11 +19,15 @@ struct GroupScrollView: View {
             VStack {
                 ForEach(friends) { friend in
                     Text("\(friend.name)")
+                        .font(.custom("SofiaSans-Regular", size: 26))
                         .onTapGesture {
                             selectedFriendId = friend.id ?? ""
                             showDeleteOption.toggle()
                         }
+                        .padding()
                     Link("\(friend.phoneNumber)", destination: URL(string: "imessage:\(friend.phoneNumber)")!)
+                        .font(.custom("SofiaSans-Regular", size: 18))
+                        .foregroundColor(Color("MainColor"))
                     Divider()
                 }
             }
@@ -38,12 +42,14 @@ struct GroupScrollView: View {
                 ])
             }
         }
+        .background(Color("BackgroundColor")
+                        .ignoresSafeArea()) // background color
     }
 }
 
 struct GroupScrollView_Previews: PreviewProvider {
     static var previews: some View {
         GroupScrollView(friends: [Friend()], event: Event())
-//            .environmentObject(FriendViewModel())
+            .environmentObject(FriendViewModel())
     }
 }

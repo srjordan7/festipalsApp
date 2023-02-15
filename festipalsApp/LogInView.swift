@@ -12,7 +12,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct LogInView: View {
-    let completeLoginProcess: () -> ()
+//    let completeLoginProcess: () -> ()
     
     // log in/sign up picker
     @State private var logInMode = false
@@ -23,80 +23,105 @@ struct LogInView: View {
     // image picker
     @State private var showImagePicker = false
     @State private var image: UIImage?
+    
+    @State private var loggedIn = false
         
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack(spacing: 16) {
-                    // mode picker
-                    Picker(selection: $logInMode, label: Text("Picker here")) {
-                        Text("log in")
-                            .tag(true)
-                        Text("sign up")
-                            .tag(false)
-                    }.pickerStyle(SegmentedPickerStyle())
-                    .padding()
-                    
-                    // profile picture entry
-                    if !logInMode {
-                        Button {
-                            showImagePicker.toggle()
-                        } label: {
-                            VStack {
-                                if let image = self.image {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .frame(width: 96, height: 96)
-                                        .scaledToFill()
-                                        .cornerRadius(64)
-                                } else {
-                                    Image(systemName: "person")
-                                        .font(.system(size: 34))
-                                        .padding()
-                                        .foregroundColor(.green) // default person image color
+            VStack {
+                Spacer(minLength: 75)
+                
+                Text("festipals")
+                    .font(.custom("Righteous-Regular", size: 48))
+                    .foregroundColor(Color("MainColor"))
+                    .padding(.bottom)
+                
+                Text(logInMode ? "log in" : "create account")
+                    .font(.custom("SofiaSans-Regular", size: 22))
+                
+                ScrollView {
+                    VStack(spacing: 16) {
+                        // mode picker
+                        Picker(selection: $logInMode, label: Text("Picker here")) {
+                            Text("log in")
+                                .tag(true)
+                            Text("sign up")
+                                .tag(false)
+                        }.pickerStyle(SegmentedPickerStyle())
+                        .padding()
+                        
+                        // profile picture entry
+                        if !logInMode {
+                            Button {
+                                showImagePicker.toggle()
+                            } label: {
+                                VStack {
+                                    if let image = self.image {
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .frame(width: 96, height: 96)
+                                            .scaledToFill()
+                                            .cornerRadius(64)
+                                    } else {
+                                        Image(systemName: "person")
+                                            .font(.system(size: 34))
+                                            .padding()
+                                            .foregroundColor(Color("MainColor")) // default person image color
+                                    }
                                 }
                             }
                         }
-                    }
-                    
-                    // email/pass entry
-                    Group {
-                        if !logInMode {
-                            TextField("name", text: $name)
+                        
+                        // email/pass entry
+                        Group {
+                            if !logInMode {
+                                TextField("name", text: $name)
+                            }
+                            TextField("email", text: $email)
+                                .keyboardType(.emailAddress)
+                            SecureField("password", text: $password)
                         }
-                        TextField("email", text: $email)
-                            .keyboardType(.emailAddress)
-                        SecureField("password", text: $password)
+                        .font(.custom("SofiaSans-Regular", size: 18))
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                        .padding(12)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(.gray.opacity(0.5), lineWidth: 2)
+                        }
+                        
+                        // create account button
+                        Button {
+                            signInUp()
+                            // ADD ALERT FOR ERRORS
+                        } label: {
+                            HStack {
+                                Spacer()
+                                Text(logInMode ? "log in" : "create account")
+                                    .font(.custom("SofiaSans-Regular", size: 18))
+                                    .foregroundColor(.white) // button text color
+                                    .padding(.vertical, 10)
+                                Spacer()
+                            }
+                            .background(Color("MainColor")) // button background color
+                            .cornerRadius(15)
+                        }
+                        
                     }
-                    .textInputAutocapitalization(.never)
-                    .autocorrectionDisabled()
-                    .padding(12)
-//                    .background(.white) // text field background color
-                    
-                    
-                    // create account button
-                    Button {
-                        signInUp()
-                        // ADD ALERT FOR ERRORS
-                    } label: {
-                        HStack {
-                            Spacer()
-                            Text(logInMode ? "log in" : "create account")
-                                .foregroundColor(.white) // button text color
-                                .padding(.vertical, 10)
-                            Spacer()
-                        }.background(Color.green) // button background color
-                    }
+                    .padding()
                 }
-                .padding()
+                
             }
-            .navigationTitle(logInMode ? "log in" : "create account")
             .background(Color("BackgroundColor")
-                .ignoresSafeArea()) // background color
+                                .ignoresSafeArea())// background color
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .fullScreenCover(isPresented: $showImagePicker) {
             ImagePicker(image: $image)
+                .tint(Color("MainColor"))
+        }
+        .fullScreenCover(isPresented: $loggedIn) {
+            AllEventsView()
         }
     }
     
@@ -148,7 +173,7 @@ struct LogInView: View {
             
             self.logInStatusMsg = "succesfully logged in user: \(result?.user.uid ?? "")"
             
-            self.completeLoginProcess()
+            loggedIn.toggle()
         }
     }
     
@@ -197,15 +222,13 @@ struct LogInView: View {
                 
                 print("success")
                 
-                self.completeLoginProcess()
+                loggedIn.toggle()
             }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView(completeLoginProcess: {
-            
-        })
+        LogInView()
     }
 }

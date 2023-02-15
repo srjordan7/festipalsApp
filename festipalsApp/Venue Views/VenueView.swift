@@ -24,24 +24,35 @@ struct VenueView: View {
             VStack {
                 Spacer()
                 Text("venue map")
-                    .font(.system(size: 26))
-                VenuePhotosScrollView(photos: venuePhotos, event: event)
+                    .font(.custom("Righteous-Regular", size: 30))
+                    .padding(.top, 25)
+                    .foregroundColor(Color("MainColor"))
+                
+                ZStack {
+                    Text("add a map!")
+                        .font(.custom("SofiaSans-Regular", size: 18))
+                    
+                    VenuePhotosScrollView(photos: venuePhotos, event: event)
+                }
+                
                 Spacer()
+                
                 EventTabBar(selectedTab: $selectedTab, event: event)
             }
             .toolbar{
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink(destination: AllEventsView()) {
                         Text("events")
-                            .foregroundColor(.green)
+                            .font(.custom("SofiaSans-Regular", size: 18))
+                            .foregroundColor(Color("MainColor"))
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     PhotosPicker(selection: $selectedPhoto, matching: .images, preferredItemEncoding: .automatic) {
                         Image(systemName: "plus")
-                            .foregroundColor(.green)
+                            .foregroundColor(Color("MainColor"))
                     }
-                    .tint(.green)
+                    .tint(Color("MainColor"))
                     .onChange(of: selectedPhoto) { newValue in
                         Task {
                             do {

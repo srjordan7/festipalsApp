@@ -10,7 +10,7 @@ import SwiftUI
 struct AddFriendView: View {
     @State var event: Event
     @State var friend: Friend
-    @EnvironmentObject var friendVM: FriendViewModel
+    @ObservedObject var friendVM = FriendViewModel()
     
     @Environment(\.dismiss) private var dismiss
     
@@ -19,10 +19,21 @@ struct AddFriendView: View {
             VStack {
                 Spacer()
                 Text("who's going with?")
+                    .font(.custom("Righteous-Regular", size: 30))
+                    .foregroundColor(Color("MainColor"))
                 
                 Group {
                     TextField("name", text: $friend.name)
+                        .font(.custom("SofiaSans-Regular", size: 24))
                     TextField("phone number", text: $friend.phoneNumber)
+                }
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
+                .font(.custom("SofiaSans-Regular", size: 18))
+                .padding(5)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(.gray.opacity(0.5), lineWidth: 2)
                 }
                 .padding(.horizontal)
                 
@@ -35,7 +46,8 @@ struct AddFriendView: View {
                         dismiss()
                     } label: {
                         Text("cancel")
-                            .foregroundColor(.green)
+                            .font(.custom("SofiaSans-Regular", size: 18))
+                            .foregroundColor(Color("MainColor"))
                     }
 
                 }
@@ -49,7 +61,8 @@ struct AddFriendView: View {
                         }
                     } label: {
                         Text("save")
-                            .foregroundColor(.green)
+                            .font(.custom("SofiaSans-Regular", size: 18))
+                            .foregroundColor(Color("MainColor"))
                     }
 
                 }

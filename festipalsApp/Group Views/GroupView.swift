@@ -20,9 +20,19 @@ struct GroupView: View {
         NavigationView {
             VStack {
                 Text("group")
-                Spacer()
+                    .font(.custom("Righteous-Regular", size: 30))
+                    .padding(.top, 25)
+                    .padding(.bottom, 25)
+                    .foregroundColor(Color("MainColor"))
                 
-                GroupScrollView(friends: friends, event: event)
+                Spacer()
+                ZStack {
+                    Text("add some friends!")
+                        .font(.custom("SofiaSans-Regular", size: 18))
+                    
+                    GroupScrollView(friends: friends, event: event)
+                }
+                
                 
                 Spacer()
                 
@@ -32,7 +42,8 @@ struct GroupView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink(destination: AllEventsView()) {
                         Text("events")
-                            .foregroundColor(.green)
+                            .font(.custom("SofiaSans-Regular", size: 18))
+                            .foregroundColor(Color("MainColor"))
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -40,7 +51,7 @@ struct GroupView: View {
                         showAddFriendSheet.toggle()
                     } label: {
                         Image(systemName: "plus")
-                            .foregroundColor(.green)
+                            .foregroundColor(Color("MainColor"))
                     }
 
                 }

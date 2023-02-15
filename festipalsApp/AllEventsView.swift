@@ -27,7 +27,7 @@ struct AllEventsView: View {
                             returnedImage
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 50, height: 50)
+                                .frame(width: 45, height: 45)
                                 .clipped()
                                 .cornerRadius(50)
                         } placeholder: {
@@ -40,7 +40,8 @@ struct AllEventsView: View {
                             showLogOutOptions.toggle()
                         } label: {
                             Text("log out")
-                                .foregroundColor(.green)
+                                .font(.custom("SofiaSans-Regular", size: 18))
+                                .foregroundColor(Color("MainColor"))
                         }
                     }
                     .padding()
@@ -54,16 +55,16 @@ struct AllEventsView: View {
                         ])
                     }
                     .fullScreenCover(isPresented: $currentUserVM.currentlyLoggedOut, onDismiss: nil) {
-                        LogInView(completeLoginProcess: {
-                            self.currentUserVM.currentlyLoggedOut = false
-                            self.currentUserVM.fetchCurrentUser()
-                        })
+                        LogInView()
                     }
                     
                     // personalized heading
                     Text("hi \(currentUserVM.user?.name ?? "")!")
+                        .font(.custom("SofiaSans-Regular", size: 20))
+                        .padding(.bottom, 1)
                     Text("upcoming events")
-                        .font(.system(size: 26))
+                        .font(.custom("Righteous-Regular", size: 30))
+                        .foregroundColor(Color("MainColor"))
                 }
                 .padding(.bottom, 30)
 
@@ -74,11 +75,13 @@ struct AllEventsView: View {
                         NavigationLink(destination: EventHomeView(event: event)) {
                             VStack {
                                 Text(event.eventName)
-                                    .font(.system(size: 22))
+                                    .font(.custom("SofiaSans-Regular", size: 24))
                                 if !event.multiDay {
                                     Text(event.firstDayString)
+                                        .font(.custom("SofiaSans-Regular", size: 18))
                                 } else {
                                     Text("\(event.firstDayString) - \(event.lastDayString)")
+                                        .font(.custom("SofiaSans-Regular", size: 18))
                                 }
                             }
                         }
@@ -109,11 +112,12 @@ struct AllEventsView: View {
             HStack {
                 Spacer()
                 Text("+ new event")
+                    .font(.custom("SofiaSans-Regular", size: 18))
                 Spacer()
             }
             .foregroundColor(.white) // button text color
             .padding(.vertical)
-                .background(Color.green) // button color
+                .background(Color("MainColor")) // button color
                 .cornerRadius(42)
                 .padding(.horizontal)
                 .shadow(radius: 5)

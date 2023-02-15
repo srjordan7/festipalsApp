@@ -18,13 +18,26 @@ struct NewEventView: View {
             VStack {
                 Spacer()
                 VStack {
-                    // event name entry
-                    TextField("event name", text: $event.eventName)
-                        .font(.system(size: 26))
-                        .textInputAutocapitalization(.never)
-                    // venue name entry
-                    TextField("venue", text: $event.venue)
-                        .textInputAutocapitalization(.never)
+                    Text("where to?")
+                        .font(.custom("Righteous-Regular", size: 30))
+                        .foregroundColor(Color("MainColor"))
+                    
+                    Group {
+                        // event name entry
+                        TextField("event name", text: $event.eventName)
+                            .font(.custom("SofiaSans-Regular", size: 26))
+                            .textInputAutocapitalization(.never)
+                        
+                        // venue name entry
+                        TextField("venue", text: $event.venue)
+                            .textInputAutocapitalization(.never)
+                    }
+                    .padding(5)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(.gray.opacity(0.5), lineWidth: 2)
+                    }
+                    
                     // multi day selection
                     Toggle("multi day?", isOn: $event.multiDay)
                     // if not multi day, select date
@@ -38,6 +51,7 @@ struct NewEventView: View {
                         DatePicker("last day", selection: $event.lastDay, displayedComponents: [.date])
                     }
                 }
+                .font(.custom("SofiaSans-Regular", size: 18))
                 .padding(.horizontal)
                 Spacer()
             }
@@ -50,7 +64,8 @@ struct NewEventView: View {
                         dismiss()
                     } label: {
                         Text("cancel")
-                            .foregroundColor(.green)
+                            .font(.custom("SofiaSans-Regular", size: 18))
+                            .foregroundColor(Color("MainColor"))
                     }
 
                 }
@@ -67,7 +82,8 @@ struct NewEventView: View {
                         }
                     } label: {
                         Text("save")
-                            .foregroundColor(.green)
+                            .font(.custom("SofiaSans-Regular", size: 18))
+                            .foregroundColor(Color("MainColor"))
                     }
 
                 }

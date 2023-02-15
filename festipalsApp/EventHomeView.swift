@@ -21,16 +21,36 @@ struct EventHomeView: View {
                     VStack {
                         Text("get ready for")
                         Text("\(event.eventName)")
+                            .font(.custom("Righteous-Regular", size: 30))
                         Text("at \(event.venue)!")
                     }
-                    Spacer()
+                    .font(.custom("SofiaSans-Regular", size: 18))
+                    .padding(.top, 25)
+                    
                     VStack {
                         let toDate = stringToDate()
                         let daysLeft = countdown(toDate: toDate)
-                        Text("\(daysLeft)")
-                        Text("days left")
+                        if daysLeft == 0 {
+                            Text("today")
+                                .font(.custom("Righteous-Regular", size: 75))
+                                .foregroundColor(Color("MainColor"))
+                        } else if daysLeft == 1 {
+                            Text("tomorrow")
+                                .font(.custom("Righteous-Regular", size: 75))
+                                .foregroundColor(Color("MainColor"))
+                        } else {
+                            Text("\(daysLeft)")
+                                .font(.custom("Righteous-Regular", size: 75))
+                                .foregroundColor(Color("MainColor"))
+                            Text("days left")
+                                .font(.custom("SofiaSans-Regular", size: 18))
+                        }
+                        
                     }
+                    .padding(.top, 175)
+                    
                     Spacer()
+                    
                     EventTabBar(selectedTab: $selectedTab, event: event)
                 }
             }
@@ -39,17 +59,16 @@ struct EventHomeView: View {
             .toolbar {
                 // back to all events button
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
+                    NavigationLink(destination: AllEventsView()) {
                         Text("events")
-                            .foregroundColor(.green)
+                            .font(.custom("SofiaSans-Regular", size: 18))
+                            .foregroundColor(Color("MainColor"))
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: NewEventView(event: event)) {
                         Image(systemName: "pencil")
-                            .foregroundColor(.green)             
+                            .foregroundColor(Color("MainColor"))             
                     }
                 }
             }

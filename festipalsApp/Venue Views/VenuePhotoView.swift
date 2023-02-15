@@ -20,13 +20,25 @@ struct VenuePhotoView: View {
                 Spacer()
                 ZStack {
                     Text("please cancel and select again")
-                        .font(.system(size: 13))
+                        .font(.custom("SofiaSans-Regular", size: 13))
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
                 }
-                TextField("end of day meeting spot", text: $venuePhoto.eodLocation)
-                    .padding(.all, 25)
+                Text("where are we meeting?")
+                    .font(.custom("Righteous-Regular", size: 30))
+                    .foregroundColor(Color("MainColor"))
+                TextField("end of day", text: $venuePhoto.eodLocation)
+                    .autocorrectionDisabled()
+                    .textInputAutocapitalization(.never)
+                    .font(.custom("SofiaSans-Regular", size: 18))
+                    .padding(5)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(.gray.opacity(0.5), lineWidth: 2)
+                    }
+                    .padding()
+                
                 Spacer()
             }
             .toolbar{
@@ -34,7 +46,8 @@ struct VenuePhotoView: View {
                     Button("cancel") {
                         dismiss()
                     }
-                    .foregroundColor(.green)
+                    .font(.custom("SofiaSans-Regular", size: 18))
+                    .foregroundColor(Color("MainColor"))
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("save") {
@@ -45,12 +58,14 @@ struct VenuePhotoView: View {
                             }
                         }
                     }
-                    .foregroundColor(.green)
+                    .font(.custom("SofiaSans-Regular", size: 18))
+                    .foregroundColor(Color("MainColor"))
                 }
             }
             .background(Color("BackgroundColor")
                 .ignoresSafeArea()) // background color
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
